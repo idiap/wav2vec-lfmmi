@@ -1,0 +1,1 @@
+../../../espresso/tools/kaldi/egs/swbd/s5c/local/rt03_data_prep.sh

@@ -1,0 +1,7 @@
+#!/bin/sed -f
+s:\[noise\]::g
+s:\[laughter\]::g
+s:\[vocalized-noise\]::g
+s:<unk>::g
+s:%hesitation::g
+

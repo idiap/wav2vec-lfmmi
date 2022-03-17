@@ -1,0 +1,84 @@
+# @package _group_
+
+common:
+  fp16: false
+  log_format: simple
+  log_interval: 20
+  no_progress_bar: true
+  seed: 10
+
+checkpoint:
+  no_epoch_checkpoints: true
+  restore_file: checkpoint_last.pt
+  save_dir: ???
+  keep_last_epochs: 5
+  save_interval_updates: 200
+
+task:
+  _name: asr_wav_finetune_hybrid
+  data: ???
+  normalize: false
+  num_targets: ???
+  #data_buffer_size: 0
+  valid_subset: valid
+
+dataset:
+  num_workers: 4
+  max_tokens: 800000
+  skip_invalid_size_inputs_valid_test: true
+  curriculum: 1
+  valid_subset: valid
+  batch_size_valid: 4
+  validate_interval: 1
+  disable_validation: true
+
+distributed_training:
+  ddp_backend: no_c10d
+
+criterion:
+  _name: lattice_free_mmi
+  denominator_fst_path: ???
+  leaky_hmm_coefficient: 0.1
+  output_l2_regularization_coefficient: 1e-5
+
+optimization:
+  max_update: ???
+  lr: [0.00003]
+  sentence_avg: true
+  update_freq: ???
+
+optimizer:
+  _name: adam
+  adam_betas: (0.9,0.98)
+  adam_eps: 1e-08
+  weight_decay: 0.01
+
+lr_scheduler:
+  _name: tri_stage
+  final_lr_scale: 0.05
+  warmup_steps: ???
+  hold_steps: ???
+  decay_steps: ???
+
+model:
+  _name: wav2vec_tdnnf_lfmmi
+  w2v_path: ???
+  apply_mask: true
+  mask_updates: ???
+  mask_prob: 0.65
+  mask_channel_prob: 0.5
+  mask_channel_length: 64
+  layerdrop: 0.1
+  activation_dropout: 0.1
+  feature_grad_mult: 0.0
+  freeze_finetune_updates: ???
+  tdnnf_grad_mult: ???
+  tdnnf_dropout: 0.1
+  tdnnf_hidden_size: 1024
+  bottleneck_size: 128
+  prefinal_bottleneck_size: 256
+  kernel_sizes: "[3]*7"
+  subsampling_factors: "[1]*7"
+  output_subsampling: 1
+  num_layers: 7
+  nsgd: false

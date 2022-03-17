@@ -1,0 +1,1 @@
+../../../espresso/tools/kaldi/egs/wsj/s5/local/wsj_data_prep.sh

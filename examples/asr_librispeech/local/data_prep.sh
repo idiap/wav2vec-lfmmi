@@ -1,0 +1,1 @@
+../../../espresso/tools/kaldi/egs/librispeech/s5/local/data_prep.sh

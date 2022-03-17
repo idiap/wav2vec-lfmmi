@@ -1,0 +1,1 @@
+../../../espresso/tools/kaldi/egs/swbd/s5c/local/map_acronyms_transcripts.py
